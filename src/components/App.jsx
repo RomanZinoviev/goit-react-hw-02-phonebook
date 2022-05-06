@@ -1,24 +1,52 @@
 import { Component } from "react";
-
-export class App extends Component{
+import { ContactForm } from "./ContactForm/ContactForm";
+import { Filter } from "./Filter/Filter";
+import { ContactList } from "./ContactList/ContactList";
+export class App extends Component {
   state = {
-  contacts: [],
-  name: ''
+  contacts: [
+    {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
+    {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
+    {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
+    {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
+  ],
+  filter: '',  
   }
-
-  
+  submitHundler = (obj) => {
+    this.setState(prevState => ({  
+      contacts:[...prevState.contacts,obj]
+    }))
+  }
+  hundleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+  deleteForList = id => {
+    this.setState(prevState => ({
+      contacts:prevState.contacts.filter(contact=>contact.id!==id)
+    }))
+  }
   render() {
+    const filtredNames = this.state.contacts.filter((contact) => {
+      return(contact.name.toLowerCase().includes(this.state.filter.toLowerCase()))
+    })
     return (
-      <label htmlFor="name">Name
-        <input
-          value={this.state.name}
-  type="text"
-  name="name"
-  pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-  title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-  required
-/>
-      </label>
-    )
+      <>
+        <ContactForm
+          onSubmit={this.submitHundler}
+          array={this.state.contacts}
+        />
+        <div>
+          <h2>Contacts</h2>
+          <Filter
+            value={this.state.filter}
+            onChange={this.hundleChange}
+          />
+          <ContactList
+            array={filtredNames}
+            deleteHundler={this.deleteForList}
+          />
+        </div>
+      </>
+    );
   }
 }
