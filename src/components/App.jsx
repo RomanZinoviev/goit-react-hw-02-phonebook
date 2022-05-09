@@ -39,7 +39,7 @@ export class App extends Component {
         }}>Phonebook</h1>
         <ContactForm onSubmit={this.submitHundler} array={contacts} />
         <h2 style={{
-          fontSize: 45,          
+          fontSize: 45          
         }}>Contacts</h2>
         <Filter value={filter} onChange={this.hundleChange} />
         <ContactList array={filtredNames} deleteHundler={this.deleteForList} />
