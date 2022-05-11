@@ -12,6 +12,17 @@ export class App extends Component {
     ],
     filter: '',
   };
+  componentDidMount() {
+    const contactsFromLocalStorrage = JSON.parse(localStorage.getItem("contacts"));
+    if (contactsFromLocalStorrage) {
+      this.setState({ contacts: contactsFromLocalStorrage })
+    };
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem("contacts", JSON.stringify(this.state.contacts))
+    }
+  };
   submitHundler = obj => {
     this.setState(prevState => ({
       contacts: [...prevState.contacts, obj],
