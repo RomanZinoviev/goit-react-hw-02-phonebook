@@ -74,3 +74,4 @@ ContactForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   array:PropTypes.arrayOf(PropTypes.object).isRequired
 }
+
