@@ -8,6 +8,10 @@ export class ContactForm extends Component {
     name: '',
     number: '',
   };
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+    array: PropTypes.arrayOf(PropTypes.object).isRequired
+  };
   reset() {
     this.setState({
       name: '',
@@ -70,8 +74,5 @@ export class ContactForm extends Component {
     );
   }
 };
-ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  array:PropTypes.arrayOf(PropTypes.object).isRequired
-}
+
 
